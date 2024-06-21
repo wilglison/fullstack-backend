@@ -27,5 +27,5 @@ replay_pid*
 build/
 .project
 .classpath
-Aula1/.classpath
-Aula1/.project
+*/.classpath
+*/.project
