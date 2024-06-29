@@ -18,6 +18,10 @@
         <label for="preco">Preço:</label>
         <input type="number" step="0.01" id="preco" name="preco" th:value="${produto.preco}">
     </div>
+    <select ?th:field="${categorias}">
+        <option
+          ?th:value="${produto.categoria.nome}"
+        ></option>
     <div>
         <button type="submit">Atualizar Produto</button>
     </div>

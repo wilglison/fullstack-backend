@@ -31,10 +31,11 @@ public class Produto {
 	)
 	private List<Tag> tags;
 
-	public Produto(Long id, String nome, double preco) {
+	public Produto(Long id, String nome, double preco, Categoria categoria) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+		this.categoria = categoria;
 	}
 
 	public Produto() {
