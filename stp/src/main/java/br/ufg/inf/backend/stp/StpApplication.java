@@ -1,13 +1,13 @@
-package br.ufg.inf.backend.spring;
+package br.ufg.inf.backend.stp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProjetoSpringApplication {
+public class StpApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjetoSpringApplication.class, args);
+		SpringApplication.run(StpApplication.class, args);
 	}
 
 }
