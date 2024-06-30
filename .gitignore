@@ -32,3 +32,6 @@ build/
 */build/
 .vscode/
 */.vscode/
+*/.mvn/
+*/.mvn/wrapper/maven-wrapper.properties
+stp/.mvn/wrapper/maven-wrapper.properties
