@@ -1,7 +1,12 @@
 package br.ufg.inf.backend.spring.controller;
 
 import br.ufg.inf.backend.spring.model.Produto;
+import br.ufg.inf.backend.spring.model.Categoria;
 import br.ufg.inf.backend.spring.service.ProdutoService;
+import br.ufg.inf.backend.spring.service.CategoriaService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
+    @Autowired
+    private CategoriaService categoriaService;
 
     @GetMapping("/produtos")
     public String listarProdutos(Model model, @RequestParam(required = false) String sucesso) {
@@ -32,6 +39,7 @@ public class ProdutoController {
         Produto produto = new Produto();
         produto.setNome(nome);
         produto.setPreco(preco);
+        produto.setCategoria(null);
         produtoService.salvarProduto(produto);
         redirectAttributes.addAttribute("sucesso", "Produto adicionado com sucesso!");
         return "redirect:/produtos";
@@ -40,7 +48,9 @@ public class ProdutoController {
     @GetMapping("/produtos/editar")
     public String mostrarFormularioEditarProduto(@RequestParam("id") Long id, Model model) {
         Produto produto = produtoService.obterProdutoPorId(id);
+        List<Categoria> categorias = categoriaService.listarCategorias();
         model.addAttribute("produto", produto);
+        model.addAttribute("categorias", categorias);
         return "editar-produto";
     }
     @PostMapping("/produtos/editar")
