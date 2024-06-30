@@ -29,3 +29,6 @@ build/
 .classpath
 */.classpath
 */.project
+*/build/
+.vscode/
+*/.vscode/
