@@ -20,6 +20,7 @@
           <th>Nome</th>
           <th>Preço</th>
           <th>Ações</th>
+          <th>Selecionar</th>
         </tr>
       </thead>
       <tbody>
@@ -28,12 +29,21 @@
           <td th:text="${produto.categoria.nome}" />
           <td th:text="${produto.nome}" />
           <td th:text="${produto.preco}" />
-		  <td><a th:href="@{/produtos/editar?id={id}(id=${produto.id})}">editar</a></td>
+          <td>
+            <a th:href="@{/produtos/editar?id={id}(id=${produto.id})}" class="button">editar</a>
+          </td>
+          <td>
+            <form th:action="@{/produtos/deletar}" method="post" class="button-container">
+              <input type="hidden" name="id" th:value="${produto.id}" />
+              <button type="submit" class="button">deletar</button>
+            </form>
+          </td>
         </tr>
       </tbody>
     </table>
     <div class="button-container">
       <a th:href="@{/produtos/adicionar}" class="button">Adicionar Novo Produto</a>
+  
     </div>
   </body>
 </html>
