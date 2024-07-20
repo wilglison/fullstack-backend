@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Lista de Tags</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <a th:href="@{/produtos}" class="button">Produtos</a>
+      <h1>Lista de Tags</h1>
+    </header>
+    <div th:if="${sucesso}" class="success-message">
+      <p th:text="${sucesso}"></p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="tag : ${tags}">
+          <td th:text="${tag.id}" />
+          <td th:text="${tag.nome}" />
+          <td><a th:href="@{/tags/editar?id={id}(id=${tag.id})}" class="button">editar</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="button-container">
+      <a th:href="@{/tags/adicionar}" class="button">Adicionar Nova Tag</a>
+  
+    </div>
+  </body>
+</html>

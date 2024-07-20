@@ -13,7 +13,7 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
-	public Categoria obterCategorias(Long id) {
+	public Categoria obterCategoria(Long id) {
 		return categoriaRepository.findById(id).orElse(null);
 	}
 	
@@ -24,9 +24,6 @@ public class CategoriaService {
 		return categoriaRepository.save(categoria);
 	}
 
-	public Categoria obterCategoriaPorId(Long id) {
-		return categoriaRepository.findById(id).orElse(null);
-	}
 	public void deletarCategoria(Long id) {
 		categoriaRepository.deleteById(id);
 	}

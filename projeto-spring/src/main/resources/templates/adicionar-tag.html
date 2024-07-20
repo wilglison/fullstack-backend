@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Adicionar Tag</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<header>
+		<a th:href="@{/tags/adicionar}" class="button">Tags</a>
+		<h1>Tag - Adicionar</h1>
+	</header>
+	<form th:action="@{/produtos}" method="post">
+		<div>
+			<label for="nome">Nome:</label> <input type="text" id="nome" name="nome">
+		</div>
+		<div>
+			<button type="submit">Adicionar Tag</button>
+		</div>
+	</form>
+</body>
+</html>

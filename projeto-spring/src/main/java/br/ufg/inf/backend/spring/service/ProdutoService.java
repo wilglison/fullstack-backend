@@ -13,7 +13,7 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
-	public Produto obterProdutos(Long id) {
+	public Produto obterProduto(Long id) {
 		return produtoRepository.findById(id).orElse(null);
 	}
 	
@@ -24,9 +24,6 @@ public class ProdutoService {
 		return produtoRepository.save(produto);
 	}
 
-	public Produto obterProdutoPorId(Long id) {
-		return produtoRepository.findById(id).orElse(null);
-	}
 	public void deletarProduto(Long id) {
 		produtoRepository.deleteById(id);
 	}

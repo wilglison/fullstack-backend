@@ -38,13 +38,13 @@ public class CategoriaController {
 
 	@GetMapping("/categorias/editar")
 	public String mostrarFormularioEditarCategoria(@RequestParam("id") Long id, Model model) {
-		Categoria categoria = categoriaService.obterCategoriaPorId(id);
+		Categoria categoria = categoriaService.obterCategoria(id);
 		model.addAttribute("categoria", categoria);
 		return "editar-categoria";
 	}
 	@PostMapping("/categorias/editar")
 	public String editarCategoria(@RequestParam("id") Long id, @RequestParam("nome") String nome, RedirectAttributes redirectAttributes) {
-		Categoria categoria = categoriaService.obterCategoriaPorId(id);
+		Categoria categoria = categoriaService.obterCategoria(id);
 		categoria.setNome(nome);
 		categoriaService.salvarCategoria(categoria);
 		redirectAttributes.addAttribute("sucesso", "Categoria atualizado com sucesso!");

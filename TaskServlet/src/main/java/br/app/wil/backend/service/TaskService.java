@@ -64,8 +64,8 @@ public class TaskService {
 					response.getWriter().print("Tarefa atualizada: " + newTask);
 					response.setStatus(HttpServletResponse.SC_OK);
 				} else {
-					notificacaoService.enviarNotificacao("Erro ao atualizar tarefa: índice inválido", "user@example.com");
-					response.getWriter().print("Erro ao atualizar tarefa: índice inválido");
+					notificacaoService.enviarNotificacao("Erro ao atualizar tarefa: tarefa não encontrada! "+index , "user@example.com");
+					response.getWriter().print("Erro ao atualizar tarefa: tarefa não encontrada!");
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				}
 			} else {
