@@ -36,12 +36,12 @@ public class TaskServlet extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response = taskService.atualizar(Integer.parseInt(request.getParameter("index"))-1, request.getParameter("task"),response);
+		response = taskService.atualizar(request.getParameter("index"), request.getParameter("task"),response);
 	}
 
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response = taskService.remover(Integer.parseInt(request.getParameter("index"))-1,response);
+		response = taskService.remover(request.getParameter("index"),response);
 
 	}
 }

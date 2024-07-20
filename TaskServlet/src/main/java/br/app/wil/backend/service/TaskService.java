@@ -54,8 +54,9 @@ public class TaskService {
 		return response;
 	}
 
-	public HttpServletResponse atualizar(int index, String newTask, HttpServletResponse response) throws IOException {
+	public HttpServletResponse atualizar(String indexStr, String newTask, HttpServletResponse response) throws IOException {
 		try {
+			int index = Integer.parseInt(indexStr);
 			if (newTask != null && !newTask.trim().isEmpty()) {
 				if (index >= 0 && index < tasks.size()) {
 					tasks.set(index, newTask);
@@ -72,31 +73,40 @@ public class TaskService {
 				response.getWriter().print("Erro ao atualizar tarefa: tarefa inválida");
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			}
-		} catch (NumberFormatException | IOException e) {
+		} catch (NumberFormatException e) {
+			response.getWriter().print("Índice enviado não é numérico!");
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().print("Erro ao atualizar tarefa!" +e.getCause());
-			notificacaoService.enviarNotificacao("Erro ao atualizar tarefa!" +e.getCause(), "user@example.com");
+			notificacaoService.enviarNotificacao("Erro ao atualizar tarefa: índice não numérico", "user@example.com");
+		} catch (IOException e) {
+			response.getWriter().print("Erro ao excluir tarefa!");
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			notificacaoService.enviarNotificacao("Erro ao atualizar tarefa! " + e.getMessage(), "user@example.com");
 		}
 		return response;
 	}
 
-	public HttpServletResponse remover(int index, HttpServletResponse response) throws IOException {
+	public HttpServletResponse remover(String indexStr, HttpServletResponse response) throws IOException {
 
 		try {
+			int index = Integer.parseInt(indexStr);
 			if (index >= 0 && index < tasks.size()) {
 				String removedTask = tasks.remove(index);
 				response.setStatus(HttpServletResponse.SC_OK);
-				response.getWriter().print("Tarefa removida: " + removedTask);
-				notificacaoService.enviarNotificacao("Tarefa removida: " + removedTask, "user@example.com");
+				response.getWriter().print("Tarefa excluida: " + removedTask);
+				notificacaoService.enviarNotificacao("Tarefa excluida: " + removedTask, "user@example.com");
 			} else {
 				response.getWriter().print("Tarefa não encontrada!");
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				notificacaoService.enviarNotificacao("Erro ao remover tarefa: índice inválido", "user@example.com");
+				notificacaoService.enviarNotificacao("Erro ao excluir tarefa: índice inválido", "user@example.com");
 			}
-		} catch (NumberFormatException | IOException e) {
+		} catch (NumberFormatException e) {
+			response.getWriter().print("Índice enviado não é numérico!");
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			notificacaoService.enviarNotificacao("Erro ao excluir tarefa: índice não numérico", "user@example.com");
+		} catch (IOException e) {
 			response.getWriter().print("Erro ao excluir tarefa!");
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			notificacaoService.enviarNotificacao("Erro ao excluir tarefa!" +e.getCause(), "user@example.com");
+			notificacaoService.enviarNotificacao("Erro ao excluir tarefa! " + e.getMessage(), "user@example.com");
 		}
 		return response;
 	}
