@@ -6,11 +6,16 @@
   </head>
   <body>
     <header>
+      <a th:href="@{/produtos}" class="button">Produtos</a>
       <a th:href="@{/categorias}" class="button">Categorias</a>
+      <a th:href="@{/tags}" class="button">Tags</a>
       <h1>Lista de Produtos</h1>
     </header>
     <div th:if="${sucesso}" class="success-message">
       <p th:text="${sucesso}"></p>
+    </div>
+    <div class="button-container">
+      <a th:href="@{/produtos/adicionar}" class="button">Adicionar Novo Produto</a>
     </div>
     <table>
       <thead>
@@ -30,7 +35,10 @@
           <td th:text="${produto.nome}" />
           <td th:text="${produto.preco}" />
           <td th:text="${produto.categoria.nome}" />
-          <td th:each="${produto.tags.nome}" />
+                <td>
+                    <span th:each="tag : ${produto.tags}" th:text="${tag.nome} + ' '"></span>
+                </td>
+
           <td>
             <a th:href="@{/produtos/editar?id={id}(id=${produto.id})}" class="button">editar</a>
           </td>
@@ -43,9 +51,5 @@
         </tr>
       </tbody>
     </table>
-    <div class="button-container">
-      <a th:href="@{/produtos/adicionar}" class="button">Adicionar Novo Produto</a>
-  
-    </div>
   </body>
 </html>

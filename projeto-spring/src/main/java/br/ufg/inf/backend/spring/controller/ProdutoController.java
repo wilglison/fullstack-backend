@@ -62,16 +62,21 @@ public class ProdutoController {
     public String mostrarFormularioEditarProduto(@RequestParam("id") Long id, Model model) {
         Produto produto = produtoService.obterProduto(id);
         List<Categoria> categorias = categoriaService.listarCategorias();
+        List<Tag> tags = tagService.listarTags();
         model.addAttribute("produto", produto);
         model.addAttribute("categorias", categorias);
+        model.addAttribute("tags", tags);
         return "editar-produto";
     }
     @PostMapping("/produtos/editar")
     public String editarProduto(@RequestParam("id") Long id, @RequestParam("nome") String nome,
-                                @RequestParam("preco") double preco, RedirectAttributes redirectAttributes) {
+                                @RequestParam("preco") double preco, @RequestParam("idCategoria") Long idCategoria, RedirectAttributes redirectAttributes) {
         Produto produto = produtoService.obterProduto(id);
+        Categoria categoria= categoriaService.obterCategoria(idCategoria);
         produto.setNome(nome);
         produto.setPreco(preco);
+        produto.setCategoria(categoria);
+        protudo.setTags(tags);
         produtoService.salvarProduto(produto);
         redirectAttributes.addAttribute("sucesso", "Produto atualizado com sucesso!");
         return "redirect:/produtos";
