@@ -45,7 +45,7 @@
         - [x] Remova uma tarefa da lista.
         - [x] A requisição deve conter o parâmetro index (índice da tarefa na lista, começando em 1).
         - [x] Se o índice estiver fora do intervalo ou não for válido, retorne uma mensagem de erro apropriada.
-    - [x] Dicas
+    - [x]Dicas
         - ○ Certifique-se de que os parâmetros recebidos nas requisições são válidos antes de realizar qualquer operação.
         - ○ Utilize try-catch para tratar exceções e retornar mensagens de erro apropriadas.
         - ○ Teste exaustivamente cada método HTTP para garantir que todas as funcionalidades estão implementadas corretamente.
@@ -74,19 +74,20 @@
 
 ## ORM e Hibernate:
 ### Slides 17 a 23
-- [ ] Completar Funcionalidades CRUD para Produtos.
+- [x] Completar Funcionalidades CRUD para Produtos.
 
 - Objetivo
-    - [ ] Implementar as funcionalidades restantes para o CRUD (Create, Read, Update, Delete) de produtos utilizando Spring Boot e JPA.
+    - [x] Implementar as funcionalidades restantes para o CRUD (Create, Read, Update, Delete) de produtos utilizando Spring Boot e JPA.
 - Descrição
-    - [ ] Completar a aplicação para suportar todas as operações CRUD para a entidade Produto.
-    - [ ] Adicionar as funcionalidades de atualização (Update) e exclusão (Delete) de produtos. 
-    - [ ] Criar as páginas HTML necessárias para suportar essas operações.
+    - [x] Completar a aplicação para suportar todas as operações CRUD para a entidade Produto.
+    - [x] Adicionar as funcionalidades de atualização (Update) e exclusão (Delete) de produtos. 
+    - [x] Criar as páginas HTML necessárias para suportar essas operações.
 - Atualizar Produto:
-    - [ ] Criar um endpoint GET para exibir o formulário de edição de um produto.
-    - [ ] Criar um endpoint POST para processar a atualização de um produto.
+    - [x] Criar um endpoint GET para exibir o formulário de edição de um produto.
+    - [x] Criar um endpoint POST para processar a atualização de um produto.
 - Deletar Produto
-    - [ ] Criar um endpoint POST para processar a exclusão de um produto.
+    - [x] Criar um endpoint POST para processar a exclusão de um produto.
+
 
 - Testar a Aplicação
     - [ ] Execute a aplicação e verifique se todas as operações CRUD estão funcionando corretamente.
@@ -96,10 +97,10 @@
 
 ## Spring Data e Single Page Application (v2): 
 ### Slide 22
-- [ ] Crie os endpoints para CRUD das entidades Categoria e Tag.
-    - [ ] Criar CategoriaRepository e TagRepository aos moldes do ProdutoRepository.
-    - [ ] Criar CategoriaService e TagService com base no ProdutoService.
-    - [ ] Criar CategoriaController e TagController com base no ProdutoController.
+- [x] Crie os endpoints para CRUD das entidades Categoria e Tag.
+    - [x] Criar CategoriaRepository e TagRepository aos moldes do ProdutoRepository.
+    - [x] Criar CategoriaService e TagService com base no ProdutoService.
+    - [x] Criar CategoriaController e TagController com base no ProdutoController.
 - [ ] Desafio: Implementar o frontend simples de uma SPA para consumir os endpoints para CRUD de produtos.
     - [ ] A utilização de framework Javascript é opcional. Alguns exemplos de frameworks que podem ser utilizados: React, Vue ou Angular.
 
