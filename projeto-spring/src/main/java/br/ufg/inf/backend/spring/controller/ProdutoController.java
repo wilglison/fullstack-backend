@@ -40,10 +40,12 @@ public class ProdutoController {
     }
     
     @PostMapping("/produtos")
-    public String adicionarProduto(@RequestParam String nome, @RequestParam double preco, @RequestParam Long categoriaId, @RequestParam Long tagId, RedirectAttributes redirectAttributes) {
+    public String adicionarProduto(@RequestParam String nome, @RequestParam double preco, @RequestParam Long categoriaId, @RequestParam List<Long> tagsId, RedirectAttributes redirectAttributes) {
     	Categoria categoria = categoriaService.obterCategoria(categoriaId);
     	List<Tag> tags =new ArrayList<Tag>();
-    	tags.add(tagService.obterTag(tagId));
+        for (Long tagId : tagsId) {
+            tags.add(tagService.obterTag(tagId));
+        }    	
         if (categoria == null) {
             redirectAttributes.addAttribute("erro", "Categoria inválida!");
             return "redirect:/produtos";
@@ -61,11 +63,10 @@ public class ProdutoController {
     @GetMapping("/produtos/editar")
     public String mostrarFormularioEditarProduto(@RequestParam("id") Long id, Model model) {
         Produto produto = produtoService.obterProduto(id);
-        List<Categoria> categorias = categoriaService.listarCategorias();
-        List<Tag> tags = tagService.listarTags();
+        Categoria categoria = produto.getCategoria();
+        List<Tag> tags = produto.getTags();
         model.addAttribute("produto", produto);
-        model.addAttribute("categorias", categorias);
-        model.addAttribute("tags", tags);
+
         return "editar-produto";
     }
     @PostMapping("/produtos/editar")
@@ -73,10 +74,12 @@ public class ProdutoController {
                                 @RequestParam("preco") double preco, @RequestParam("idCategoria") Long idCategoria, RedirectAttributes redirectAttributes) {
         Produto produto = produtoService.obterProduto(id);
         Categoria categoria= categoriaService.obterCategoria(idCategoria);
+      //  List<Tag> tags =new ArrayList<Tag>();
+    //	tags.add(tagService.obterTag(tagId));
         produto.setNome(nome);
         produto.setPreco(preco);
         produto.setCategoria(categoria);
-        protudo.setTags(tags);
+      //  protudo.setTags(tags);
         produtoService.salvarProduto(produto);
         redirectAttributes.addAttribute("sucesso", "Produto atualizado com sucesso!");
         return "redirect:/produtos";

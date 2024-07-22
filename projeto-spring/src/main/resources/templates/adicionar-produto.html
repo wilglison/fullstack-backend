@@ -13,16 +13,20 @@
 	</header>
 	<form th:action="@{/produtos}" method="post">
 		<div>
-			<label for="nome">Nome:</label> <input type="text" id="nome" name="nome">
+			<label for="nome">Nome:</label>
+			<input type="text" id="nome" name="nome">
 		</div>
 		<div>
-			<label for="preco">Preço:</label> <input type="text" id="preco"	name="preco">
+			<label for="preco">Preço:</label>
+			<input type="text" id="preco"	name="preco">
 		</div>
 		<div>
-			<label for="categoria">Categoria:</label> <input type="number" id="categoriaId"	name="categoriaId">
+			<label for="categoria">Categoria:</label>
+			<input type="number" id="categoriaId"	name="categoriaId">
 		</div>
 		<div>
-			<label for="tags">Tags:</label> <input type="number" id="tags"	name="tagId">
+			<label for="tags">Tags:</label> 
+			<input type="text" id="tags" placeholder="Ex: 1,2,3,4,5" name="tagsId">
 		</div>
 		<div>
 			<button type="submit">Adicionar Produto</button>
