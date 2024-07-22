@@ -16,9 +16,10 @@ public class CategoriaController {
 	private CategoriaService categoriaService;
 
 	@GetMapping("/categorias")
-	public String listarCategorias(Model model, @RequestParam(required = false) String sucesso) {
+	public String listarCategorias(Model model, @RequestParam(required = false) String sucesso, @RequestParam(required = false) String erro) {
 		model.addAttribute("categorias", categoriaService.listarCategorias());
 		model.addAttribute("sucesso", sucesso);
+		model.addAttribute("erro", erro);
 		return "categorias";
 	}
 	
@@ -52,8 +53,16 @@ public class CategoriaController {
 	}
 	@PostMapping("/categorias/deletar")
 	public String deletarCategoria(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
-		categoriaService.deletarCategoria(id);
-		redirectAttributes.addAttribute("sucesso", "Categoria deletado com sucesso!");
+		try {
+			categoriaService.deletarCategoria(id);
+			redirectAttributes.addAttribute("sucesso", "Categoria deletado com sucesso!");
+		} catch (Exception e) {
+			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+				redirectAttributes.addAttribute("erro", "Não é possível deletar esta Categoria pois ela está sendo usada em outros registros.");
+			} else {
+				redirectAttributes.addAttribute("erro", "Ocorreu um erro ao deletar a Categoria.");
+			}
+		}
 		return "redirect:/categorias";
 	}
 }

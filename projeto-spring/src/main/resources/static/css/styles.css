@@ -114,7 +114,26 @@ form button:hover {
     text-align: center;
 }
 
+.erro-message {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ff9da9;
+    color: #760000;
+    border: 1px solid #d6e9c600;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .button-container {
     text-align: center;
-    margin: 5px;
+    margin: 1px;
+    padding: 1px;
+}
+
+.button-delete {
+    width: 100px;
+    padding: 1px;
+    margin: 1px;
+
 }

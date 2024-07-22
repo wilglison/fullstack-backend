@@ -14,6 +14,9 @@
     <div th:if="${sucesso}" class="success-message">
       <p th:text="${sucesso}"></p>
     </div>
+    <div th:if="${erro}" class="erro-message">
+      <p th:text="${erro}"></p>
+    </div>
    <div class="button-container">
       <a th:href="@{/tags/adicionar}" class="button">Adicionar Nova Tag</a>
     </div>
@@ -22,7 +25,8 @@
         <tr>
           <th>ID</th>
           <th>Nome</th>
-          <th>Ações</th>
+          <th>Editar</th>
+          <th>Deletar</th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +35,12 @@
           <td th:text="${tag.nome}" />
           <td>
           	<a th:href="@{/tags/editar?id={id}(id=${tag.id})}" class="button">editar</a>
+          </td>
+          <td>
+            <form th:action="@{/tags/deletar}" method="post" class="button-delete">
+              <input type="hidden" name="id" th:value="${tag.id}" />
+              <button type="submit" class="button">deletar</button>
+            </form>
           </td>
         </tr>
       </tbody>

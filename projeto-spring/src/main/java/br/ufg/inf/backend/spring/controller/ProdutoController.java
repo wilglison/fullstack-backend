@@ -28,9 +28,10 @@ public class ProdutoController {
     private TagService tagService;
 
     @GetMapping("/produtos")
-    public String listarProdutos(Model model, @RequestParam(required = false) String sucesso) {
+    public String listarProdutos(Model model, @RequestParam(required = false) String sucesso, @RequestParam(required = false) String erro) {
         model.addAttribute("produtos", produtoService.listarProdutos());
         model.addAttribute("sucesso", sucesso);
+        model.addAttribute("erro", erro);
         return "produtos";
     }
     
@@ -71,23 +72,30 @@ public class ProdutoController {
     }
     @PostMapping("/produtos/editar")
     public String editarProduto(@RequestParam("id") Long id, @RequestParam("nome") String nome,
-                                @RequestParam("preco") double preco, @RequestParam("idCategoria") Long idCategoria, RedirectAttributes redirectAttributes) {
+                                @RequestParam("preco") double preco, @RequestParam("categoriaId") Long categoriaId, @RequestParam List<Long> tagsId, RedirectAttributes redirectAttributes) {
         Produto produto = produtoService.obterProduto(id);
-        Categoria categoria= categoriaService.obterCategoria(idCategoria);
-      //  List<Tag> tags =new ArrayList<Tag>();
-    //	tags.add(tagService.obterTag(tagId));
+        Categoria categoria= categoriaService.obterCategoria(categoriaId);
+        List<Tag> tags =new ArrayList<Tag>();
+        for (Long tagId : tagsId) {
+            tags.add(tagService.obterTag(tagId));
+        }
+        
         produto.setNome(nome);
         produto.setPreco(preco);
         produto.setCategoria(categoria);
-      //  protudo.setTags(tags);
+        produto.setTags(tags);
         produtoService.salvarProduto(produto);
         redirectAttributes.addAttribute("sucesso", "Produto atualizado com sucesso!");
         return "redirect:/produtos";
     }
     @PostMapping("/produtos/deletar")
-    public String deletarProduto(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
-        produtoService.deletarProduto(id);
-        redirectAttributes.addAttribute("sucesso", "Produto deletado com sucesso!");
+    public String deletarProduto(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) { 
+        try {
+			produtoService.deletarProduto(id);
+			redirectAttributes.addAttribute("sucesso", "Produto deletado com sucesso!");
+		} catch (Exception e) {
+            redirectAttributes.addAttribute("erro", "Ocorreu um erro ao deletar o produto.");
+		}
         return "redirect:/produtos";
     }
 }

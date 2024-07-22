@@ -14,6 +14,9 @@
     <div th:if="${sucesso}" class="success-message">
       <p th:text="${sucesso}"></p>
     </div>
+    <div th:if="${erro}" class="erro-message">
+      <p th:text="${erro}"></p>
+    </div>
     <div class="button-container">
       <a th:href="@{/produtos/adicionar}" class="button">Adicionar Novo Produto</a>
     </div>
@@ -43,7 +46,7 @@
             <a th:href="@{/produtos/editar?id={id}(id=${produto.id})}" class="button">editar</a>
           </td>
           <td>
-            <form th:action="@{/produtos/deletar}" method="post" class="button-container">
+            <form th:action="@{/produtos/deletar}" method="post" class="button-delete">
               <input type="hidden" name="id" th:value="${produto.id}" />
               <button type="submit" class="button">deletar</button>
             </form>

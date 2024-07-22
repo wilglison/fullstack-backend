@@ -23,18 +23,12 @@
     </div>
     <div>
 		<label for="categoria">Categoria:</label>
-        <input type="number"  id="categoria" name="categoria" th:value="${produto.categoria.id}">
+        <input type="number"  id="categoria" name="categoriaId" th:value="${produto.categoria.id}">
        
     </div>
     <div>
 		<label for="tag">Tags:</label>
-        <input type="text" id="tags" name="tags" th:each="tag : ${produto.tags}" th:value="${tag.id}">
-
-        <!-- 
-        <input type="text" id="tags" name="tags" th:value="${#strings.join(produto.tags, ',')}">
-        <input type="text" id="tags" name="tags" th:value="${produto.tags}" placeholder="Ex: 1,2,3,4,5" >  
-        <input type="text" id="tags" name="tags" th:value="${produto.tags.id}">  
-        -->
+        <input type="text" id="tags" name="tagsId" th:value="${#strings.listJoin(produto.tags.![id], ',')}" placeholder="Ex: 1,2,3">
     </div>
     <div>
         <button type="submit">Atualizar Produto</button>

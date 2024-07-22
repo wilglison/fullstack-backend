@@ -16,9 +16,10 @@ public class TagController {
 	private TagService tagService;
 
 	@GetMapping("/tags")
-	public String listarTags(Model model, @RequestParam(required = false) String sucesso) {
+	public String listarTags(Model model, @RequestParam(required = false) String sucesso, @RequestParam(required = false) String erro) {
 		model.addAttribute("tags", tagService.listarTags());
 		model.addAttribute("sucesso", sucesso);
+		model.addAttribute("erro", erro);
 		return "tags";
 	}
 
@@ -52,8 +53,16 @@ public class TagController {
 	}
 	@PostMapping("/tags/deletar")
 	public String deletarTag(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
-		tagService.deletarTag(id);
-		redirectAttributes.addAttribute("sucesso", "Tag deletado com sucesso!");
+		try {
+			tagService.deletarTag(id);
+			redirectAttributes.addAttribute("sucesso", "Tag deletado com sucesso!");
+		} catch (Exception e) {
+			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+				redirectAttributes.addAttribute("erro", "Não é possível deletar esta tag pois ela está sendo usada em outros registros.");
+			} else {
+				redirectAttributes.addAttribute("erro", "Ocorreu um erro ao deletar a tag.");
+			}
+		}
 		return "redirect:/tags";
 	}
 }
