@@ -36,7 +36,7 @@ public class Produto {
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(
 			name = "produto_tag", 
 			joinColumns = @JoinColumn(name = "produto_id"), 

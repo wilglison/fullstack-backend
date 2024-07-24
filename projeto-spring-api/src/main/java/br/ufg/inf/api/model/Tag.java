@@ -27,7 +27,4 @@ public class Tag {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	
-	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
-	private List<Produto> produtos;
 }
