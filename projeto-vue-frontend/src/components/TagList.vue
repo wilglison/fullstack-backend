@@ -1,24 +1,22 @@
 <template>
   <div>
-    <h1>Lista de Produtos</h1>
-    <ProdutoForm @produtoAdicionado="listarProdutos"/>
+    <h1>Lista de Tags</h1>
+    <TagForm @tagAdicionado="listarTags"/>
     <table>
       <thead>
         <tr>
           <th>ID</th>
           <th>Nome</th>
-          <th>Preço</th>
-          <th>Categoria</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-  <ProdutoItem 
-    v-for="produto in produtos" 
-    :key="produto.id" 
-    :produto="produto" 
-    @produtoAtualizado="listarProdutos" 
-    @produtoDeletado="listarProdutos"
+  <TagItem 
+    v-for="categoria in categorias" 
+    :key="categoria.id" 
+    :categoria="categoria" 
+    @tagAtualizado="listarTags" 
+    @tagDeletado="listarTags"
   />
 </tbody>
     </table>
@@ -27,28 +25,28 @@
 
 <script>
 import axios from '../axios';
-import ProdutoForm from './ProdutoForm.vue';
-import ProdutoItem from './ProdutoItem.vue';
+import TagForm from './TagForm.vue';
+import TagItem from './TagItem.vue';
 
 export default {
-  components: { ProdutoForm, ProdutoItem },
+  components: { TagForm, TagItem },
   data() {
     return {
-      produtos: []
+      tags: []
     }
   },
   methods: {
-    async listarProdutos() {
+    async listarTags() {
       try {
-        const response = await axios.get('/produtos');
-        this.produtos = response.data;
+        const response = await axios.get('/tags');
+        this.tags = response.data;
       } catch (error) {
-        console.error("Erro ao listar produtos:", error);
+        console.error("Erro ao listar tags:", error);
       }
     }
   },
   created() {
-    this.listarProdutos();
+    this.listarTags();
   }
 }
 </script>
