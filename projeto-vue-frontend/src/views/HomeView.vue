@@ -1,47 +1,13 @@
 <template>
   <div>
-    <v-btn-toggle v-model="activeModule" mandatory>
-      <v-btn value="produtos">Produtos</v-btn>
-      <v-btn value="categorias">Categorias</v-btn>
-      <v-btn value="tags">Tags</v-btn>
-    </v-btn-toggle>
-
-    <div class="mt-4">
-      <ProdutoList v-if="activeModule === 'produtos'" />
-      <CategoriaList v-if="activeModule === 'categorias'" />
-      <TagList v-if="activeModule === 'tags'" />
-    </div>
+    <CategoriaManager/>
   </div>
 </template>
 
 <script>
-import ProdutoList from '../components/ProdutoList.vue';
-import CategoriaList from '../components/CategoriaList.vue';
-import TagList from '../components/TagList.vue';
-
+import CategoriaManager from '../components/CategoriaManager.vue';
 export default {
   name: 'HomeView',
-  components: { ProdutoList, CategoriaList, TagList },
-  data() {
-    return {
-      activeModule: 'produtos',
-    };
-  },
+  components: { CategoriaManager }
 }
 </script>
-
-<style scoped>
-.home {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h1, h2 {
-  color: #333;
-}
-
-.featured-products, .categories {
-  margin-top: 30px;
-}
-</style>

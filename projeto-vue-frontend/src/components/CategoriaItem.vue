@@ -1,12 +1,12 @@
 <template>
   <tr>
-    <td>{{ produto.id }}</td>
-    <td>{{ produto.nome }}</td>
-    <td>{{ produto.preco }}</td>
-    <td>{{ produto.categoria.nome }}</td>
+    <td>{{ categoria.id }}</td>
+    <td>{{ categoria.nome }}</td>
+    <td>{{ categoria.preco }}</td>
+    <td>{{ categoria.categoria.nome }}</td>
     <td>
-      <button @click="editarProduto">Editar</button>
-      <button @click="deletarProduto">Deletar</button>
+      <button @click="editarCategoria">Editar</button>
+      <button @click="deletarCategoria">Deletar</button>
     </td>
   </tr>
 </template>
@@ -15,36 +15,36 @@
 import axios from '../axios';
 
 export default {
-  props: ['produto'],
+  props: ['categoria'],
   data() {
     return {
       editando: false,
-      produtoAtualizado: { ...this.produto }
+      categoriaAtualizado: { ...this.categoria }
     }
   },
   methods: {
-    editarProduto() {
+    editarCategoria() {
       this.editando = true;
     },
     cancelarEdicao() {
       this.editando = false;
-      this.produtoAtualizado = { ...this.produto };
+      this.categoriaAtualizado = { ...this.categoria };
     },
-    async atualizarProduto() {
+    async atualizarCategoria() {
       try {
-        await axios.put(`/produtos/${this.produtoAtualizado.id}`, this.produtoAtualizado);
+        await axios.put(`/categorias/${this.categoriaAtualizado.id}`, this.categoriaAtualizado);
         this.editando = false;
-        this.$emit('produtoAtualizado');
+        this.$emit('categoriaAtualizado');
       } catch (error) {
-        console.error("Erro ao atualizar produto:", error);
+        console.error("Erro ao atualizar categoria:", error);
       }
     },
-    async deletarProduto() {
+    async deletarCategoria() {
       try {
-        await axios.delete(`/produtos/${this.produto.id}`);
-        this.$emit('produtoDeletado');
+        await axios.delete(`/categorias/${this.categoria.id}`);
+        this.$emit('categoriaDeletado');
       } catch (error) {
-        console.error("Erro ao deletar produto:", error);
+        console.error("Erro ao deletar categoria:", error);
       }
     }
   }
