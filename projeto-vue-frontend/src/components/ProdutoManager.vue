@@ -133,6 +133,10 @@ export default {
       }
     },
     async salvarProduto() {
+      if (!this.produtoAtual.categoria) {
+        this.showMessage('Por favor, selecione uma categoria', 'error');
+        return;
+      }
       try {
         const produtoParaSalvar = {
           ...this.produtoAtual,

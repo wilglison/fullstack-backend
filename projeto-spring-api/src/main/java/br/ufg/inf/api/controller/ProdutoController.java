@@ -65,35 +65,41 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> adicionarProduto(@RequestBody Produto produto) {
+    public ResponseEntity<?> adicionarProduto(@RequestBody Produto produto) {
         try {
+            if (produto.getCategoria() == null) {
+                return ResponseEntity.badRequest().body("Categoria é obrigatória");
+            }
             Produto novoProduto = produtoService.salvarProduto(produto);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar produto: " + e.getMessage());
         }
     }
-
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarProduto(@RequestBody Produto produto) {
+        try {
+            if (produto.getCategoria() == null) {
+                return ResponseEntity.badRequest().body("Categoria é obrigatória");
+            }
+            Produto produtoAtualizado = produtoService.salvarProduto(produto);
+            if (produtoAtualizado != null) {
+                return ResponseEntity.ok(produtoAtualizado);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar produto: " + e.getMessage());
+        }
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Produto> obterProduto(@PathVariable Long id) {
         try {
             Produto produto = produtoService.obterProduto(id);
             if (produto != null) {
                 return ResponseEntity.ok(produto);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Produto> atualizarProduto(@RequestBody Produto produto) {
-        try {
-            Produto produtoAtualizado = produtoService.salvarProduto(produto);
-            if (produtoAtualizado != null) {
-                return ResponseEntity.ok(produtoAtualizado);
             } else {
                 return ResponseEntity.notFound().build();
             }
