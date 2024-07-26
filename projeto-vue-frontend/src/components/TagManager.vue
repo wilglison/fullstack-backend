@@ -91,12 +91,19 @@ export default {
     },
     async deletarTag(id) {
       try {
-        await axios.delete(`/tags/${id}`);
-        this.listarTags();
-        this.showMessage('Tag deletada com sucesso', 'success');
+        const response = await axios.delete(`/tags/${id}`);
+        if (response.status === 204) {
+          this.listarTags();
+          this.showMessage('Tag deletada com sucesso', 'success');
+        } else {
+          this.showMessage(response.data, 'error');
+        }
       } catch (error) {
-        console.error("Erro ao deletar tag:", error);
-        this.showMessage('Erro ao deletar Tag', 'error');
+        if (error.response && error.response.data) {
+          this.showMessage(error.response.data, 'error');
+        } else {
+          this.showMessage('Erro ao deletar Tag', 'error');
+        }
       }
     }
   },

@@ -91,12 +91,19 @@ export default {
     },
     async deletarCategoria(id) {
       try {
-        await axios.delete(`/categorias/${id}`);
-        this.listarCategorias();
-        this.showMessage('Categoria deletada com sucesso', 'success');
+        const response = await axios.delete(`/categorias/${id}`);
+        if (response.status === 204) {
+          this.listarCategorias();
+          this.showMessage('Categoria deletada com sucesso', 'success');
+        } else {
+          this.showMessage(response.data, 'error');
+        }
       } catch (error) {
-        console.error("Erro ao deletar categoria:", error);
-        this.showMessage('Erro ao deletar Categoria', 'error');
+        if (error.response && error.response.data) {
+          this.showMessage(error.response.data, 'error');
+        } else {
+          this.showMessage('Erro ao deletar Categoria', 'error');
+        }
       }
     }
   },

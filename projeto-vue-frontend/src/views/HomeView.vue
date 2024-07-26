@@ -38,7 +38,7 @@ export default {
       this.message = { text, type };
       setTimeout(() => {
         this.closeMessage();
-      }, 5000);
+      }, 10000);
     },
     closeMessage() {
       this.message = null;
