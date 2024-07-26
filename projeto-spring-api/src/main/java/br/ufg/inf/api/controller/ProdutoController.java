@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.ufg.inf.api.exception.ValidationException;
+import br.ufg.inf.api.model.Categoria;
 import br.ufg.inf.api.model.Produto;
+import br.ufg.inf.api.model.Tag;
+import br.ufg.inf.api.service.CategoriaService;
 import br.ufg.inf.api.service.ProdutoService;
+import br.ufg.inf.api.service.TagService;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -23,11 +28,37 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
+    @Autowired
+    private CategoriaService categoriaService;
+
+    @Autowired
+    private TagService tagService;
+
     @GetMapping
     public ResponseEntity<List<Produto>> listarProdutos() {
         try {
             List<Produto> produtos = produtoService.listarProdutos();
             return ResponseEntity.ok(produtos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/categorias")
+    public ResponseEntity<List<Categoria>> listarCategorias() {
+        try {
+            List<Categoria> categorias = categoriaService.listarCategorias();
+            return ResponseEntity.ok(categorias);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/tags")
+    public ResponseEntity<List<Tag>> listarTags() {
+        try {
+            List<Tag> tags = tagService.listarTags();
+            return ResponseEntity.ok(tags);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

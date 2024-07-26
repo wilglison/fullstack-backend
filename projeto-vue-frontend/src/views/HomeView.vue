@@ -1,6 +1,11 @@
 <template>
   <div>
     <nav class="navbar-expand-lg navbar-light bg-light mb-4">
+    <div v-if="message" :class="['alert', message.type === 'success' ? 'alert-success' : 'alert-danger', 'alert-dismissible', 'fade', 'show']" role="alert">
+      {{ message.text }}
+      <button type="button" class="btn-close" @click="closeMessage" aria-label="Close"></button>
+    </div>
+
       <div class="container-fluid">
         <div class="navbar-nav d-flex justify-content-center w-100">
           <button class="nav-item btn btn-link" :class="{ 'active': currentComponent === 'ProdutoManager' }" @click="currentComponent = 'ProdutoManager'">Produtos</button>
@@ -10,7 +15,7 @@
       </div>
     </nav>
     <div class="container">
-      <component :is="currentComponent"></component>
+      <component :is="currentComponent" :showMessage="showMessage"></component>
     </div>
   </div>
 </template>
