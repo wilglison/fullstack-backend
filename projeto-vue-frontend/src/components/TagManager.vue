@@ -41,6 +41,7 @@
 import axios from '../axios';
 
 export default {
+  props: ['showMessage'],
   data() {
     return {
       tags: [],
@@ -58,19 +59,26 @@ export default {
         this.tags = response.data;
       } catch (error) {
         console.error("Erro ao listar tags:", error);
+        this.showMessage('Erro ao listar tags', 'error');
       }
     },
     async salvarTag() {
       try {
         if (this.editando) {
           await axios.put(`/tags/${this.tagAtual.id}`, this.tagAtual);
+          this.showMessage('Tag atualizada com sucesso', 'success');
         } else {
           await axios.post('/tags', this.tagAtual);
+          this.showMessage('Tag adicionada com sucesso', 'success');
         }
         this.listarTags();
         this.limparSelecao();
       } catch (error) {
-        console.error("Erro ao salvar tag:", error);
+        if (error.response) {
+          this.showMessage(error.response.data, 'error');
+        } else {
+          this.showMessage('Erro ao salvar Tag', 'error');
+        }
       }
     },
     selecionarTag(tag) {
@@ -85,8 +93,10 @@ export default {
       try {
         await axios.delete(`/tags/${id}`);
         this.listarTags();
+        this.showMessage('Tag deletada com sucesso', 'success');
       } catch (error) {
         console.error("Erro ao deletar tag:", error);
+        this.showMessage('Erro ao deletar Tag', 'error');
       }
     }
   },

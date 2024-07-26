@@ -2,10 +2,6 @@
   <div class="card mb-4">
     <h1 class="display-8">Produtos</h1>
     <div class="card-body">
-      <div v-if="message" :class="['alert', message.type === 'success' ? 'alert-success' : 'alert-danger', 'alert-dismissible', 'fade', 'show']" role="alert">
-        {{ message.text }}
-        <button type="button" class="btn-close" @click="closeMessage" aria-label="Close"></button>
-      </div>
       <h2 class="h4 mb-0">{{ editando ? 'Editar' : 'Adicionar' }} Produto</h2>
       <form @submit.prevent="salvarProduto" class="mb-4">
         <div class="row">
@@ -89,6 +85,7 @@ import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 
 export default {
+  props: ['showMessage'],
   components: {
     vSelect
   },
@@ -105,7 +102,6 @@ export default {
         tags: [],
       },
       editando: false,
-      message: null
     }
   },
   methods: {
@@ -177,15 +173,6 @@ export default {
         this.showMessage('Erro ao deletar produto', 'error');
       }
     },
-    showMessage(text, type) {
-      this.message = { text, type };
-      setTimeout(() => {
-        this.closeMessage();
-      }, 5000);
-    },
-    closeMessage() {
-      this.message = null;
-    }
   },
   created() {
     this.listarProdutos();
@@ -196,16 +183,5 @@ export default {
 </script>
 
 <style scoped>
-.v-select .vs__selected {
-  margin: 2px 2px 2px 0;
-}
-.v-select .vs__deselect {
-  fill: white;
-}
-.alert {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
+
 </style>

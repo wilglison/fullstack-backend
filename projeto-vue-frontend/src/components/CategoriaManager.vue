@@ -41,6 +41,7 @@
 import axios from '../axios';
 
 export default {
+  props: ['showMessage'],
   data() {
     return {
       categorias: [],
@@ -58,19 +59,26 @@ export default {
         this.categorias = response.data;
       } catch (error) {
         console.error("Erro ao listar categorias:", error);
+        this.showMessage('Erro ao listar categorias', 'error');        
       }
     },
     async salvarCategoria() {
       try {
         if (this.editando) {
           await axios.put(`/categorias/${this.categoriaAtual.id}`, this.categoriaAtual);
+          this.showMessage('Categoria atualizada com sucesso', 'success');
         } else {
           await axios.post('/categorias', this.categoriaAtual);
+          this.showMessage('Categoria adicionada com sucesso', 'success');
         }
         this.listarCategorias();
         this.limparSelecao();
       } catch (error) {
-        console.error("Erro ao salvar categoria:", error);
+        if (error.response) {
+          this.showMessage(error.response.data, 'error');
+        } else {
+          this.showMessage('Erro ao salvar Categoria', 'error');
+        }
       }
     },
     selecionarCategoria(categoria) {
@@ -85,8 +93,10 @@ export default {
       try {
         await axios.delete(`/categorias/${id}`);
         this.listarCategorias();
+        this.showMessage('Categoria deletada com sucesso', 'success');
       } catch (error) {
         console.error("Erro ao deletar categoria:", error);
+        this.showMessage('Erro ao deletar Categoria', 'error');
       }
     }
   },

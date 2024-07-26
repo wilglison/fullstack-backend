@@ -1,11 +1,10 @@
 <template>
   <div>
-    <nav class="navbar-expand-lg navbar-light bg-light mb-4">
     <div v-if="message" :class="['alert', message.type === 'success' ? 'alert-success' : 'alert-danger', 'alert-dismissible', 'fade', 'show']" role="alert">
       {{ message.text }}
       <button type="button" class="btn-close" @click="closeMessage" aria-label="Close"></button>
     </div>
-
+    <nav class="navbar-expand-lg navbar-light bg-light mb-4">
       <div class="container-fluid">
         <div class="navbar-nav d-flex justify-content-center w-100">
           <button class="nav-item btn btn-link" :class="{ 'active': currentComponent === 'ProdutoManager' }" @click="currentComponent = 'ProdutoManager'">Produtos</button>
@@ -30,7 +29,19 @@ export default {
   components: { ProdutoManager, TagManager, CategoriaManager },
   data() {
     return {
-      currentComponent: 'ProdutoManager'
+      currentComponent: 'ProdutoManager',
+      message: null
+    }
+  },
+  methods: {
+    showMessage(text, type) {
+      this.message = { text, type };
+      setTimeout(() => {
+        this.closeMessage();
+      }, 5000);
+    },
+    closeMessage() {
+      this.message = null;
     }
   }
 }
@@ -47,5 +58,11 @@ export default {
 .navbar-nav .btn-link.active {
   color: rgba(0,0,0,.9);
   font-weight: bold;
+}
+.alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 </style>
