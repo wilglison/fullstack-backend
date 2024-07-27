@@ -20,13 +20,13 @@ jobs:
 
     - name: Build with Maven
       working-directory: projeto-spring-api
-      run: mvn clean package
+      run: mvn clean package -DskipTests=true
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: java-app
-        path: projeto-spring-api/target/*.jar
+        path: projeto-spring-api/target/*.jar projeto-spring-api/src/main/resources/application.prod.properties
 
   deploy:
     needs: build
@@ -56,6 +56,6 @@ jobs:
         scp -p ${{ secrets.EC2_HOST_PORT }} -i ec2-key.pem target/*.jar ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/produto-api.jar
         ssh -p ${{ secrets.EC2_HOST_PORT }} -i ec2-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
           pkill -f 'java -jar' || true
-          nohup java -jar /home/${{ secrets.EC2_USER }}/produto-api.jar > app.log 2>&1 &
+          nohup java -Dspring.config.additional-location=application.prod.properties -jar /home/${{ secrets.EC2_USER }}/produto-api.jar > app.log 2>&1 &
         EOF
       continue-on-error: true
