@@ -28,7 +28,6 @@
         </div>
         <div class="row mt-3">
           <div class="col-md-12">
-            <label>Tags:</label>
             <v-select
               v-model="produtoAtual.tags"
               :options="allTags"
