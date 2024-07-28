@@ -20,7 +20,8 @@ jobs:
 
     - name: Build with Maven
       working-directory: projeto-spring-api
-      run: mvn clean package -DskipTests=true
+      #run: mvn clean package -DskipTests=true
+      run: mvn clean package -DskipTests=true -Dspring.config.additional-location=application.build.properties
 
     - name: Upload app
       uses: actions/upload-artifact@v3
@@ -103,4 +104,4 @@ jobs:
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         scp  -P ${PORT} -o StrictHostKeyChecking=no -i private_key -r projeto-vue-frontend/dist/* ${USER}@${HOST}:/var/www/produto-vue/
-        #ssh -P ${PORT} -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 'sudo systemctl restart nginx'
+        ssh -P ${PORT} -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 'sudo systemctl restart nginx'
