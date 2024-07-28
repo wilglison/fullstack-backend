@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'adopt'
         java-version: '17'
@@ -23,7 +23,7 @@ jobs:
       run: mvn clean package -DskipTests=true -Dspring.config.additional-location=application.build.properties
 
     - name: Upload app
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: java-app
         path: projeto-spring-api/target/*.jar
@@ -34,7 +34,7 @@ jobs:
 
     steps:
     - name: Download app
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: java-app
         path: .
@@ -66,10 +66,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: '20.11.0'
 
