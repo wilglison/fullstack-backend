@@ -1,17 +1,17 @@
 <template>
-  <div class="card mb-4">
-    <h1 class="display-8">Categorias</h1>
-    <div class="card-body">
-      <h2 class="h4 mb-0">{{ editando ? 'Editar' : 'Adicionar' }} Categoria</h2>
+  <div class="card mb-4 justify-content-center">
+    <h1 class="display-8 justify-content-center">Categorias</h1>
+    <div class="card-body justify-content-center">
+      <h2 class="h4 mb-0 justify-content-center">{{ editando ? 'Editar' : 'Adicionar' }} Categoria</h2>
       <form @submit.prevent="salvarCategoria" class="mb-4">
         <div class="row justify-content-center">
           <div class="col-md-4">
-            <input class="form-control" v-model="categoriaAtual.nome" placeholder="Nome" required/>
+            <input class="form-control justify-content-center" v-model="categoriaAtual.nome" placeholder="Nome" required/>
           </div>
         </div>
-        <div class="mt-2">
-          <button class="btn btn-success me-2" type="submit">{{ editando ? 'Atualizar' : 'Salvar' }}</button>
-          <button class="btn btn-secondary" type="button" @click="limparSelecao">Cancelar</button>
+        <div class="mt-2 justify-content-center">
+          <button class="btn btn-success me-2 justify-content-center" type="submit">{{ editando ? 'Atualizar' : 'Salvar' }}</button>
+          <button class="btn btn-secondary justify-content-center" type="button" @click="limparSelecao">Cancelar</button>
         </div>
       </form>
     </div>

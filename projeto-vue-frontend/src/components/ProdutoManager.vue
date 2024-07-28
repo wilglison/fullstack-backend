@@ -1,17 +1,17 @@
 <template>
-  <div class="card mb-4">
-    <h1 class="display-8">Produtos</h1>
-    <div class="card-body">
-      <h2 class="h4 mb-0">{{ editando ? 'Editar' : 'Adicionar' }} Produto</h2>
+  <div class="card mb-4 justify-content-center">
+    <h1 class="display-8 justify-content-center">Produtos</h1>
+    <div class="card-body justify-content-center">
+      <h2 class="h4 mb-0" justify-content-center>{{ editando ? 'Editar' : 'Adicionar' }} Produto</h2>
       <form @submit.prevent="salvarProduto" class="mb-4">
-        <div class="row">
-          <div class="col-md-4">
-            <input class="form-control" v-model="produtoAtual.nome" placeholder="Nome" required/>
+        <div class="row justify-content-center">
+          <div class="col-md-4 justify-content-center">
+            <input class="form-control justify-content-center" v-model="produtoAtual.nome" placeholder="Nome" required/>
           </div>
           <div class="col-md-4">
-            <input class="form-control" v-model="produtoAtual.preco" placeholder="Preço" type="number" step="0.01" required/>
+            <input class="form-control justify-content-center" v-model="produtoAtual.preco" placeholder="Preço" type="number" step="0.01" required/>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 justify-content-center">
               <v-select
                 v-model="produtoAtual.categoria"
                 :options="categorias"
@@ -26,7 +26,7 @@
               </v-select>
           </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3 justify-content-center">
           <div class="col-md-12">
             <v-select
               v-model="produtoAtual.tags"
@@ -47,8 +47,8 @@
           </div>
         </div>
         <div class="mt-3">
-          <button class="btn btn-success me-2" type="submit">{{ editando ? 'Atualizar' : 'Salvar' }}</button>
-          <button class="btn btn-secondary" type="button" @click="limparSelecao">Cancelar</button>
+          <button class="btn btn-success me-2 justify-content-center" type="submit">{{ editando ? 'Atualizar' : 'Salvar' }}</button>
+          <button class="btn btn-secondary justify-content-center" type="button" @click="limparSelecao">Cancelar</button>
         </div>
       </form>
     </div>
