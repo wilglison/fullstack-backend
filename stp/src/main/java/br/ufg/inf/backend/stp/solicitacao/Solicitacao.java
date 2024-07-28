@@ -7,14 +7,44 @@ import br.ufg.inf.backend.stp.documentoTransferencia.DocumentoTransferencia;
 import br.ufg.inf.backend.stp.especialidade.Especialidade;
 import br.ufg.inf.backend.stp.medico.Medico;
 import br.ufg.inf.backend.stp.paciente.Paciente;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
+@Entity
+@Data
 public class Solicitacao {
+    @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Medico medico;
-    private Paciente paciente;
     private String motivo;
-    private DocumentoTransferencia documento;
-    private List<Especialidade> especialidadesRequisitada;
     private Date horarioSolicitacao;
+
+    @ManyToOne
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
+
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "documento_id")
+    private DocumentoTransferencia documento;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "solicitacao_especialidade",
+            joinColumns = @JoinColumn(name = "solicitacao_id"),
+            inverseJoinColumns = @JoinColumn(name = "especialidade_id")
+    )
+    private List<Especialidade> especialidadesRequisitada;
+
     
 }

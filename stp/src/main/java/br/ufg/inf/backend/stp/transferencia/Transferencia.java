@@ -6,7 +6,7 @@ import br.ufg.inf.backend.stp.documentoTransferencia.DocumentoTransferencia;
 import br.ufg.inf.backend.stp.medico.Medico;
 import br.ufg.inf.backend.stp.paciente.Paciente;
 import br.ufg.inf.backend.stp.solicitacao.Solicitacao;
-import br.ufg.inf.backend.stp.unidade_hospitalar.UnidadeHospitalar;
+import br.ufg.inf.backend.stp.unidadeHospitalar.UnidadeHospitalar;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,6 +24,9 @@ public class Transferencia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Date horarioSaida;
+	private Date horarioPrevistoChegada;
+	private Double distancia;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "meio_transporte", length = 20)
@@ -32,18 +35,25 @@ public class Transferencia {
 	@ManyToOne
 	@JoinColumn(name = "destino_id")
 	private UnidadeHospitalar destino;
-	
 	@ManyToOne
 	@JoinColumn(name = "origem_id")
 	private UnidadeHospitalar origem;
-
-	private Date horarioSaida;
-	private Date horarioPrevistoChegada;
-	private Double distancia;
+	@ManyToOne
+	@JoinColumn(name = "medico_destino_id")
 	private Medico medicoDestino;
+	@ManyToOne
+	@JoinColumn(name = "medico_origem_id")
 	private Medico medicoOrigem;
+	@ManyToOne
+	@JoinColumn(name = "medico_regulador_id")
 	private Medico medicoRegulador;
+	@ManyToOne
+	@JoinColumn(name = "documento_transferencia_id")
 	private DocumentoTransferencia documento;
+	@ManyToOne
+	@JoinColumn(name = "paciente_id")
 	private Paciente paciente;
+	@ManyToOne
+	@JoinColumn(name = "solicitacao_id")
 	private Solicitacao solicitacao;
 }

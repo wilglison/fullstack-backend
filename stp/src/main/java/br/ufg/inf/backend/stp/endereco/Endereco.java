@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -19,6 +21,8 @@ public class Endereco {
 	private String complemento;
 	@Column(length = 50, nullable = false)
 	private String bairro;
+	@Pattern(regexp = "^[0-9]{8}$", message = "CEP inválido")
+	@Size(min = 8, max = 8, message = "CEP deve ter 8 dígitos")
 	@Column(length = 8, columnDefinition = "char(8)", nullable = false)
 	private String cep;
 	@Column(length = 50, nullable = false)

@@ -1,4 +1,4 @@
-package br.ufg.inf.backend.stp.unidade_hospitalar;
+package br.ufg.inf.backend.stp.unidadeHospitalar;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 @Entity
@@ -21,16 +22,18 @@ public class UnidadeHospitalar {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String telefone;
+	@Email
 	private String email;
-	
-	@OneToOne
-	@JoinColumn(name = "endereco_id")
-	private Endereco endereco;
+	private Boolean temUTI;
 	private String dadosPessoal;
 	private Double latitude;
 	private Double longitude;
 	private Integer disponibilidadeLeitos;
-	
+
+	@OneToOne
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
+
 	@ManyToMany
 	@JoinTable(
 			name = "unidade_hospitalar_especialidades",
@@ -38,6 +41,5 @@ public class UnidadeHospitalar {
 			inverseJoinColumns = @JoinColumn(name = "especialidade_id") 
 	)
 	private List<Especialidade> especialidades;
-	private Boolean temUTI;
-	
+
 }

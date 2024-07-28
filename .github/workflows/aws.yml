@@ -71,3 +71,34 @@ jobs:
           nohup java -Dspring.config.additional-location=application.prod.properties -jar /home/${{ secrets.EC2_USER }}/produto-api.jar > app.log 2>&1 &
         EOF
       #continue-on-error: true
+
+
+  deploy-vue:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.11.0'
+
+    - name: Install dependencies
+      working-directory: projeto-vue-frontend
+      run: npm ci
+
+    - name: Build
+      working-directory: projeto-vue-frontend
+      run: npm run build
+
+    - name: Deploy to EC2
+      env:
+        PRIVATE_KEY: ${{ secrets.EC2_KEY }}
+        HOST: ${{ secrets.EC2_HOST }}
+        USER: ${{ secrets.EC2_USER }}
+      run: |
+        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        scp -o StrictHostKeyChecking=no -i private_key -r projeto-vue-frontend/dist/* ${USER}@${HOST}:/var/www/produto-vue/
+        #ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 'sudo systemctl restart nginx'
