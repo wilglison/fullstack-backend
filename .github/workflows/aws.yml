@@ -28,12 +28,6 @@ jobs:
       with:
         name: java-app
         path: projeto-spring-api/target/*.jar
-    
-    - name: Upload conf
-      uses: actions/upload-artifact@v3
-      with:
-        name: java-conf
-        path: projeto-spring-api/src/main/resources/application.prod.properties
 
   deploy-api:
     needs: build-api
@@ -46,12 +40,6 @@ jobs:
         name: java-app
         path: .
 
-    - name: Download conf
-      uses: actions/download-artifact@v3
-      with:
-        name: java-conf
-        path: .
-    
     - name: Install SSH Client
       run: sudo apt-get install -y openssh-client
 
@@ -69,7 +57,7 @@ jobs:
         scp -o StrictHostKeyChecking=no -P ${EC2_HOST_PORT} -i ec2-key.pem application.prod.properties ${EC2_USER}@${EC2_HOST}:/home/${EC2_USER}/application.prod.properties
         ssh -o StrictHostKeyChecking=no -p ${EC2_HOST_PORT} -i ec2-key.pem ${EC2_USER}@${EC2_HOST} << 'EOF'
           pkill -f 'java -jar' || true
-          nohup java -Dspring.config.additional-location=application.prod.properties -jar /home/${EC2_USER}/produto-api.jar > app.log 2>&1 &
+          nohup java -jar /home/${EC2_USER}/produto-api.jar > app.log 2>&1 &
         EOF
       #continue-on-error: true
 
@@ -103,5 +91,5 @@ jobs:
         PORT: ${{ secrets.EC2_HOST_PORT }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-        scp  -P ${PORT} -o StrictHostKeyChecking=no -i private_key -r projeto-vue-frontend/dist/* ${USER}@${HOST}:/var/www/produto-vue/
-        ssh -P ${PORT} -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 'sudo systemctl restart nginx'
+        scp -P ${PORT} -o StrictHostKeyChecking=no -i private_key -r projeto-vue-frontend/dist/* ${USER}@${HOST}:/var/www/produto-vue/
+        ssh -p ${PORT} -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 'sudo systemctl restart nginx'
