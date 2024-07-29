@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import br.ufg.inf.backend.stp.endereco.Endereco;
 import br.ufg.inf.backend.stp.prontuario.Prontuario;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,12 +38,12 @@ public class Paciente {
     @Column(nullable = false)
     private TipoSanguineo tipoSanguineo;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
-    @OneToOne
-    @JoinColumn(name = "prontuario_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prontuario_id", nullable = false)
     private Prontuario prontuario;
 
 

@@ -27,11 +27,11 @@ public class Medico {
     private Papel papel;
 
     @ManyToOne
-    @JoinColumn(name = "unidade_hospitalar_id")
+    @JoinColumn(name = "unidade_hospitalar_id", nullable = false)
     private UnidadeHospitalar unidadeHospitalar;
 
     @ManyToOne
-    @JoinColumn(name = "especialidade_id")
+    @JoinColumn(name = "especialidade_id", nullable = false)
     private Especialidade especialidade;
     
 }

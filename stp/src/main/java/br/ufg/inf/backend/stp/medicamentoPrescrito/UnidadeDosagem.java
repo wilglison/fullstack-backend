@@ -1,10 +1,11 @@
 package br.ufg.inf.backend.stp.medicamentoPrescrito;
 
 public enum UnidadeDosagem {
-    MILIGRAMA("mg"),
-    MICROGRAMA("µg"),
-    MILILITRO("mL"),
-    COMPRIMIDO("comprimido");
+    mg("Miligrama"),
+    µg("Micrograma"),
+    mL("Mililitro"),
+    cp("Comprimido"),
+    UI("Unidades Internacionais");
 
     private final String descricao;
 

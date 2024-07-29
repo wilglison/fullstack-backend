@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UnidadeHospitalarService {
 
@@ -18,7 +20,8 @@ public class UnidadeHospitalarService {
 	public UnidadeHospitalar salvar(UnidadeHospitalar unidadeHospitalar) {
 		return repository.save(unidadeHospitalar);
 	}
-
+	
+	@Transactional
 	public UnidadeHospitalar salvar(Long id, UnidadeHospitalar unidadeHospitalar) {
 		unidadeHospitalar.setId(id);
 		return repository.save(unidadeHospitalar);

@@ -44,8 +44,8 @@ public class Solicitacao {
     @ManyToMany
     @JoinTable(
             name = "solicitacao_especialidade",
-            joinColumns = @JoinColumn(name = "solicitacao_id"),
-            inverseJoinColumns = @JoinColumn(name = "especialidade_id")
+            joinColumns = @JoinColumn(name = "solicitacao_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "especialidade_id", nullable = false)
     )
     private List<Especialidade> especialidadesRequisitada;
 

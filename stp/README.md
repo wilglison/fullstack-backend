@@ -31,7 +31,7 @@ UnidadeHospitalar:
 - especalidades: List<Especialidade>
 - temUTI: boolean
 
-MecamentoPrecrito:
+MecamentoPrescrito:
 - id: Long
 - mecamento: Medicamento
 - polologia: String

@@ -23,8 +23,8 @@ public class DocumentoTransferencia {
 
     @ManyToMany
     @JoinTable(name = "documento_transferencia_medicamento"
-        , joinColumns = @JoinColumn(name = "documento_transferencia_id")
-        , inverseJoinColumns = @JoinColumn(name = "medicamento_id")
+        , joinColumns = @JoinColumn(name = "documento_transferencia_id", nullable = false)
+        , inverseJoinColumns = @JoinColumn(name = "medicamento_id", nullable = false)
     )
     private List<Medicamento> drogasAdministradas;
 

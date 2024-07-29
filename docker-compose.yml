@@ -23,6 +23,9 @@ services:
     ports:
       - "8089:80"
     restart: always
+#    volumes:
+#      - ./pgadminStorage:/var/lib/pgadmin/storage/
+
 
 #  dbeaver:
 #    container_name: dbeaver
