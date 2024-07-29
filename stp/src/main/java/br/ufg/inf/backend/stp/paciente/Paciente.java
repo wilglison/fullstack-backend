@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import br.ufg.inf.backend.stp.endereco.Endereco;
 import br.ufg.inf.backend.stp.prontuario.Prontuario;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,12 +23,18 @@ public class Paciente {
     private Long id;
 
     @CPF
+    @Column(nullable = false, unique = true)
     private String cpf;
+    
+    @Column(nullable = false)
     private String name;
-
+    
     private String telefone;
+    
     @Email
     private String email;
+
+    @Column(nullable = false)
     private TipoSanguineo tipoSanguineo;
 
     @OneToOne

@@ -33,27 +33,34 @@ public class Transferencia {
 	private MeioTransporte meioTransporte;
 	
 	@ManyToOne
-	@JoinColumn(name = "destino_id")
+	@JoinColumn(name = "destino_id", nullable = false)
 	private UnidadeHospitalar destino;
+	
 	@ManyToOne
-	@JoinColumn(name = "origem_id")
+	@JoinColumn(name = "origem_id", nullable = false)
 	private UnidadeHospitalar origem;
+	
 	@ManyToOne
 	@JoinColumn(name = "medico_destino_id")
 	private Medico medicoDestino;
+	
 	@ManyToOne
-	@JoinColumn(name = "medico_origem_id")
+	@JoinColumn(name = "medico_origem_id", nullable = false)
 	private Medico medicoOrigem;
+	
 	@ManyToOne
-	@JoinColumn(name = "medico_regulador_id")
+	@JoinColumn(name = "medico_regulador_id", nullable = false)
 	private Medico medicoRegulador;
+
 	@ManyToOne
-	@JoinColumn(name = "documento_transferencia_id")
+	@JoinColumn(name = "documento_transferencia_id", nullable = false, unique = true)
 	private DocumentoTransferencia documento;
+
 	@ManyToOne
-	@JoinColumn(name = "paciente_id")
+	@JoinColumn(name = "paciente_id", nullable = false)
 	private Paciente paciente;
+
 	@ManyToOne
-	@JoinColumn(name = "solicitacao_id")
+	@JoinColumn(name = "solicitacao_id", nullable = false, unique = true)
 	private Solicitacao solicitacao;
 }

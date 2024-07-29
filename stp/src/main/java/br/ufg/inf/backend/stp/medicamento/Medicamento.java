@@ -1,5 +1,6 @@
 package br.ufg.inf.backend.stp.medicamento;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ public class Medicamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false, unique = true)
 	private String nome;
 	private String principioAtivo;
 	private String descricao;
