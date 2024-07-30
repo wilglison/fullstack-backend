@@ -36,4 +36,3 @@ build/
 */.mvn/wrapper/maven-wrapper.properties
 stp/.mvn/wrapper/maven-wrapper.properties
 
-backup-stpdb.sql

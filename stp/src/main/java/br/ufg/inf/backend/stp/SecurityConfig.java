@@ -1,5 +1,6 @@
-package br.ufg.inf.backend.stp.security;
+package br.ufg.inf.backend.stp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,36 +14,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    UserDetailsService userDetailsService;
+
+    @SuppressWarnings("removal")
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/css/**", "/js/**").permitAll()
-                .requestMatchers("/login").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/**").permitAll()
             )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-            );
-        return http.build();
-        }
-
-/*
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authz -> authz
-                .anyRequest().authenticated()
-            )
+            .csrf().disable()
             .httpBasic()
             .and()
             .userDetailsService(userDetailsService);
@@ -54,6 +36,29 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-*/
 
+    /*  autenticação por pagina
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/css/**", "/js/**").permitAll()
+                .requestMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/transferencia", true)
+                .permitAll()
+            )
+            .userDetailsService(userDetailsService);
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            );
+        return http.build();
+        }
+*/
 }

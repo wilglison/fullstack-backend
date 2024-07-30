@@ -1,4 +1,4 @@
-package br.ufg.inf.backend.stp.security;
+package br.ufg.inf.backend.stp.security.role;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

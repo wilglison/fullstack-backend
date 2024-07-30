@@ -1,10 +1,14 @@
 package br.ufg.inf.backend.stp.security;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -20,4 +24,25 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         return user;
     }
+
+	public List<User> listar() {
+		return userRepository.findAll();
+	}
+
+	public User salvar(User user) {
+		return userRepository.save(user);
+	}
+
+	public User salvar(Long id, User user) {
+		user.setId(id);
+		return userRepository.save(user);
+	}
+
+	public User obter(Long id) {
+		return userRepository.findById(id).orElse(null);
+	}
+
+	public void remover(Long id) {
+		userRepository.deleteById(id);
+	}
 }
