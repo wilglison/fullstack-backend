@@ -40,6 +40,7 @@ public class ProdutoController {
             List<Produto> produtos = produtoService.listarProdutos();
             return ResponseEntity.ok(produtos);
         } catch (Exception e) {
+        	e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
