@@ -24,7 +24,7 @@ import br.ufg.inf.api.repository.ProdutoRepository;
 import br.ufg.inf.api.repository.TagRepository;
 
 @ExtendWith(SpringExtension.class)
-public class ServiceTestsUnit {
+public class ServiceUnitTests {
 
     @InjectMocks
     private ProdutoService produtoService;
