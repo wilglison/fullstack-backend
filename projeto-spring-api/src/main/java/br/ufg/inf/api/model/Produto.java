@@ -1,7 +1,9 @@
 package br.ufg.inf.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,11 +23,11 @@ public class Produto {
 	private String nome;
 	private double preco;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "produto_tag", 
 			joinColumns = @JoinColumn(name = "produto_id"), 
@@ -37,6 +39,9 @@ public class Produto {
 		this.id = id;
 		this.setNome(nome);
 		this.setPreco(preco);
+		this.categoria = new Categoria();
+		this.tags = List.of();
+		
 	}
 	
 	public Produto() {
@@ -77,8 +82,12 @@ public class Produto {
 	}
 
 	public List<Tag> getTags() {
+		if (tags == null) {
+			tags = new ArrayList<>();
+		}
 		return tags;
-	}
+    }
+
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;

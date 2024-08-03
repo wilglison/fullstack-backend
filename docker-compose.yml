@@ -27,21 +27,5 @@ services:
 #      - ./pgadminStorage:/var/lib/pgadmin/storage/
 
 
-#  dbeaver:
-#    container_name: dbeaver
-#    restart: always
-#    image: dbeaver/cloudbeaver:24
-#    command:
-#      - "groupadd cloudbeaver"
-#      - "useradd -ms /bin/bash -g cloudbeaver cloudbeaver"
-#      - "chown -R cloudbeaver ./"
-#    user: cloudbeaver
-
-#    build:
-#      context: .
-#      dockerfile: Dockerfile.dbeaver
-#    ports:
-#      - "8978:8978"
-
 volumes:
   postgres_data:

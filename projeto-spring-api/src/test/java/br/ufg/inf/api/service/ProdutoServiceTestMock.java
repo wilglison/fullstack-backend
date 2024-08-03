@@ -52,7 +52,6 @@ public class ProdutoServiceTestMock {
         assertEquals(nome, produtoSalvo.getNome());
         assertEquals(preco, produtoSalvo.getPreco());
 
-
-    
+   
     }
 }
